@@ -20,7 +20,7 @@ First make sure that you have correctly installed the __latest__ versions of the
 
 ## Start the server:
 
-Run your app : `sails lift` or `node app`.
+Run your app : `sails lift` or  `npm start` or `node app`.
 
 Visit [http://localhost:1337/](http://localhost:1337/) in your browser.
 
