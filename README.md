@@ -1,11 +1,23 @@
 #Getting Started
 
+## Prerequisites
+
+First make sure that you have correctly installed the __latest__ versions of the following libraries
+
+* **[Node.JS](http://www.nodejs.org)**
+* **[Npm](https://npmjs.org/)**
+* **[Git](https://help.github.com/articles/set-up-git)**
+* **[Grunt](http://gruntjs.com/)** (run the command `npm install -g grunt-cli`)
+* **[Bower](http://bower.io)** (run the command `npm install -g bower`)
+* **[Sails](https://github.com/balderdashy/sails)** (run the command `npm install -g sails`)
+
 ## Installation
 
-To install the latest stable release with the command-line tool:
+1. Clone the repository somewhere inside you Home directory: `git clone https://github.com/**/*.git`
+2. `cd` to the created directory.
+2. Get all Node dependencies through [npm](https://npmjs.org/): `npm install`
+3. Get all client dependencies through [bower](http://bower.io/): `bower install`
 
-`sudo npm -g install sails`
+## Now Start the server:
 
-##Now lift the server:
-
-`sails lift`
+`sails lift` or `node app`
