@@ -1,5 +1,3 @@
-#Getting Started
-
 ## Prerequisites
 
 First make sure that you have correctly installed the __latest__ versions of the following libraries
@@ -18,6 +16,14 @@ First make sure that you have correctly installed the __latest__ versions of the
 2. Get all Node dependencies through [npm](https://npmjs.org/): `npm install`
 3. Get all client dependencies through [bower](http://bower.io/): `bower install`
 
+#Getting Started
+
 ## Now Start the server:
 
 `sails lift` or `node app`
+
+## Tutorials:
+
+**[Sails screencasts](https://www.youtube.com/playlist?list=PLf8i4fc0zJBzLhOe6FwHpGhBDgqwInJWZ)**
+
+
