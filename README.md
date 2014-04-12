@@ -22,7 +22,7 @@ First make sure that you have correctly installed the __latest__ versions of the
 
 Run your app : `sails lift` or `node app`.
 
-Visit http://localhost:1337/ in your browser.
+Visit [http://localhost:1337/](http://localhost:1337/) in your browser.
 
 ## Tutorials:
 
