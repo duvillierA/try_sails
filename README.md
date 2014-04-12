@@ -18,7 +18,7 @@ First make sure that you have correctly installed the __latest__ versions of the
 2. Get all Node dependencies through [npm](https://npmjs.org/): `npm install`
 3. Get all client dependencies through [bower](http://bower.io/): `bower install`
 
-## Now Start the server:
+## Start the server:
 
 Run your app : `sails lift` or `node app`.
 
