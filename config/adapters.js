@@ -1,6 +1,3 @@
-var path = require('path'),
-  local = require(path.resolve('config','local.js'));
-
 /**
  * Global adapter config
  *
@@ -23,13 +20,13 @@ module.exports.adapters = {
 
   postgresql: {
       module: 'sails-postgresql',
-      host: process.env.PG_HOSTNAME || (local.postgresql.host || 'localhost'),
-      user: process.env.PG_USER || (local.postgresql.user || 'root'),
-      password: process.env.PG_PASSWORD || (local.postgresql.password || ''),
-      database: process.env.PG_DATABASE || (local.postgresql.database || 'postgres'),
-      port: process.env.PG_PORT || (local.postgresql.port || 5432),
+      host: process.env.PG_HOSTNAME,
+      user: process.env.PG_USER,
+      password: process.env.PG_PASSWORD,
+      database: process.env.PG_DATABASE,
+      port: process.env.PG_PORT,
       // heroku require ssl
-      ssl: process.env.NODE_ENV === 'production' ? true : false
+      ssl: true
   },
 
   // Persistent adapter for DEVELOPMENT ONLY
