@@ -1,4 +1,5 @@
-var local = require('./local');
+var path = require('path'),
+  local = require(path.resolve('config','local.js'));
 
 /**
  * Global adapter config
