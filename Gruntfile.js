@@ -1,13 +1,13 @@
 /**
  * Gruntfile
  *
- * If you created your Sails app with `sails new foo --linker`, 
+ * If you created your Sails app with `sails new foo --linker`,
  * the following files will be automatically injected (in order)
  * into the EJS and HTML files in your `views` and `assets` folders.
  *
  * At the top part of this file, you'll find a few of the most commonly
  * configured options, but Sails' integration with Grunt is also fully
- * customizable.  If you'd like to work with your assets differently 
+ * customizable.  If you'd like to work with your assets differently
  * you can change this file to do anything you like!
  *
  * More information on using Grunt to work with static assets:
@@ -22,14 +22,14 @@ module.exports = function (grunt) {
    * CSS files to inject in order
    * (uses Grunt-style wildcard/glob/splat expressions)
    *
-   * By default, Sails also supports LESS in development and production.
-   * To use SASS/SCSS, Stylus, etc., edit the `sails-linker:devStyles` task 
-   * below for more options.  For this to work, you may need to install new 
+   * By default, Sails also supports LESS in development and main.
+   * To use SASS/SCSS, Stylus, etc., edit the `sails-linker:devStyles` task
+   * below for more options.  For this to work, you may need to install new
    * dependencies, e.g. `npm install grunt-contrib-sass`
    */
 
   var cssFilesToInject = [
-    'linker/**/*.css'
+    'styles/*.css'
   ];
 
 
@@ -37,29 +37,29 @@ module.exports = function (grunt) {
    * Javascript files to inject in order
    * (uses Grunt-style wildcard/glob/splat expressions)
    *
-   * To use client-side CoffeeScript, TypeScript, etc., edit the 
+   * To use client-side CoffeeScript, TypeScript, etc., edit the
    * `sails-linker:devJs` task below for more options.
    */
 
   var jsFilesToInject = [
 
-    // Below, as a demonstration, you'll see the built-in dependencies 
+    // Below, as a demonstration, you'll see the built-in dependencies
     // linked in the proper order order
 
     // Bring in the socket.io client
-    'linker/js/socket.io.js',
+    // 'js/socket.io.js',
 
     // then beef it up with some convenience logic for talking to Sails.js
-    'linker/js/sails.io.js',
+    // 'js/sails.io.js',
 
     // A simpler boilerplate library for getting you up and running w/ an
     // automatic listener for incoming messages from Socket.io.
-    'linker/js/app.js',
+    'js/app.js',
 
     // *->    put other dependencies here   <-*
 
     // All of the rest of your app scripts imported here
-    'linker/**/*.js'
+    'js/*.js'
   ];
 
 
@@ -67,55 +67,27 @@ module.exports = function (grunt) {
    * Client-side HTML templates are injected using the sources below
    * The ordering of these templates shouldn't matter.
    * (uses Grunt-style wildcard/glob/splat expressions)
-   * 
-   * By default, Sails uses JST templates and precompiles them into 
+   *
+   * By default, Sails uses JST templates and precompiles them into
    * functions for you.  If you want to use jade, handlebars, dust, etc.,
    * edit the relevant sections below.
    */
 
   var templateFilesToInject = [
-    'linker/**/*.html'
+    '**/*.html'
   ];
 
-
-
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
-  //
-  // DANGER:
-  //
-  // With great power comes great responsibility.
-  //
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
-
-  // Modify css file injection paths to use 
+  // Modify css file injection paths to use
   cssFilesToInject = cssFilesToInject.map(function (path) {
     return '.tmp/public/' + path;
   });
 
-  // Modify js file injection paths to use 
+  // Modify js file injection paths to use
   jsFilesToInject = jsFilesToInject.map(function (path) {
     return '.tmp/public/' + path;
   });
-  
-  
+
+
   templateFilesToInject = templateFilesToInject.map(function (path) {
     return 'assets/' + path;
   });
@@ -130,7 +102,7 @@ module.exports = function (grunt) {
   grunt.loadTasks(depsPath + '/grunt-contrib-jst/tasks');
   grunt.loadTasks(depsPath + '/grunt-contrib-watch/tasks');
   grunt.loadTasks(depsPath + '/grunt-contrib-uglify/tasks');
-  grunt.loadTasks(depsPath + '/grunt-contrib-cssmin/tasks');
+  grunt.loadTasks(depsPath + '/grunt-contrib-csstasks');
   grunt.loadTasks(depsPath + '/grunt-contrib-less/tasks');
   grunt.loadTasks(depsPath + '/grunt-contrib-coffee/tasks');
 
@@ -191,17 +163,11 @@ module.exports = function (grunt) {
           src: ['*.less'],
           dest: '.tmp/public/styles/',
           ext: '.css'
-        }, {
-          expand: true,
-          cwd: 'assets/linker/styles/',
-          src: ['*.less'],
-          dest: '.tmp/public/linker/styles/',
-          ext: '.css'
         }
         ]
       }
     },
-    
+
     coffee: {
       dev: {
         options:{
@@ -214,12 +180,6 @@ module.exports = function (grunt) {
             src: ['**/*.coffee'],
             dest: '.tmp/public/js/',
             ext: '.js'
-          }, {
-            expand: true,
-            cwd: 'assets/linker/js/',
-            src: ['**/*.coffee'],
-            dest: '.tmp/public/linker/js/',
-            ext: '.js'
           }
         ]
       }
@@ -228,25 +188,25 @@ module.exports = function (grunt) {
     concat: {
       js: {
         src: jsFilesToInject,
-        dest: '.tmp/public/concat/production.js'
+        dest: '.tmp/public/concat/main.js'
       },
       css: {
         src: cssFilesToInject,
-        dest: '.tmp/public/concat/production.css'
+        dest: '.tmp/public/concat/main.css'
       }
     },
 
     uglify: {
       dist: {
-        src: ['.tmp/public/concat/production.js'],
-        dest: '.tmp/public/min/production.js'
+        src: ['.tmp/public/concat/main.js'],
+        dest: '.tmp/public/main.js'
       }
     },
 
     cssmin: {
       dist: {
-        src: ['.tmp/public/concat/production.css'],
-        dest: '.tmp/public/min/production.css'
+        src: ['.tmp/public/concat/main.css'],
+        dest: '.tmp/public/main.css'
       }
     },
 
@@ -274,9 +234,9 @@ module.exports = function (grunt) {
           appRoot: '.tmp/public'
         },
         files: {
-          '.tmp/public/**/*.html': ['.tmp/public/min/production.js'],
-          'views/**/*.html': ['.tmp/public/min/production.js'],
-          'views/**/*.ejs': ['.tmp/public/min/production.js']
+          '.tmp/public/**/*.html': ['.tmp/public/main.js'],
+          'views/**/*.html': ['.tmp/public/main.js'],
+          'views/**/*.ejs': ['.tmp/public/main.js']
         }
       },
 
@@ -304,9 +264,9 @@ module.exports = function (grunt) {
           appRoot: '.tmp/public'
         },
         files: {
-          '.tmp/public/index.html': ['.tmp/public/min/production.css'],
-          'views/**/*.html': ['.tmp/public/min/production.css'],
-          'views/**/*.ejs': ['.tmp/public/min/production.css']
+          '.tmp/public/index.html': ['.tmp/public/main.css'],
+          'views/**/*.html': ['.tmp/public/main.css'],
+          'views/**/*.ejs': ['.tmp/public/main.css']
         }
       },
 
@@ -325,74 +285,6 @@ module.exports = function (grunt) {
         }
       },
 
-
-      /*******************************************
-       * Jade linkers (TODO: clean this up)
-       *******************************************/
-
-      devJsJADE: {
-        options: {
-          startTag: '// SCRIPTS',
-          endTag: '// SCRIPTS END',
-          fileTmpl: 'script(type="text/javascript", src="%s")',
-          appRoot: '.tmp/public'
-        },
-        files: {
-          'views/**/*.jade': jsFilesToInject
-        }
-      },
-
-      prodJsJADE: {
-        options: {
-          startTag: '// SCRIPTS',
-          endTag: '// SCRIPTS END',
-          fileTmpl: 'script(type="text/javascript", src="%s")',
-          appRoot: '.tmp/public'
-        },
-        files: {
-          'views/**/*.jade': ['.tmp/public/min/production.js']
-        }
-      },
-
-      devStylesJADE: {
-        options: {
-          startTag: '// STYLES',
-          endTag: '// STYLES END',
-          fileTmpl: 'link(rel="stylesheet", href="%s")',
-          appRoot: '.tmp/public'
-        },
-        files: {
-          'views/**/*.jade': cssFilesToInject
-        }
-      },
-
-      prodStylesJADE: {
-        options: {
-          startTag: '// STYLES',
-          endTag: '// STYLES END',
-          fileTmpl: 'link(rel="stylesheet", href="%s")',
-          appRoot: '.tmp/public'
-        },
-        files: {
-          'views/**/*.jade': ['.tmp/public/min/production.css']
-        }
-      },
-
-      // Bring in JST template object
-      devTplJADE: {
-        options: {
-          startTag: '// TEMPLATES',
-          endTag: '// TEMPLATES END',
-          fileTmpl: 'script(type="text/javascript", src="%s")',
-          appRoot: '.tmp/public'
-        },
-        files: {
-          'views/**/*.jade': ['.tmp/public/jst.js']
-        }
-      }
-      /************************************
-       * Jade linker end
-       ************************************/
     },
 
     watch: {
@@ -423,7 +315,7 @@ module.exports = function (grunt) {
     'clean:dev',
     'jst:dev',
     'less:dev',
-    'copy:dev',    
+    'copy:dev',
     'coffee:dev'
   ]);
 
@@ -432,10 +324,7 @@ module.exports = function (grunt) {
     // Update link/script/template references in `assets` index.html
     'sails-linker:devJs',
     'sails-linker:devStyles',
-    'sails-linker:devTpl',
-    'sails-linker:devJsJADE',
-    'sails-linker:devStylesJADE',
-    'sails-linker:devTplJADE'
+    'sails-linker:devTpl'
   ]);
 
 
@@ -448,7 +337,7 @@ module.exports = function (grunt) {
     'copy:build'
   ]);
 
-  // When sails is lifted in production
+  // When sails is lifted in main
   grunt.registerTask('prod', [
     'clean:dev',
     'jst:dev',
@@ -460,10 +349,7 @@ module.exports = function (grunt) {
     'cssmin',
     'sails-linker:prodJs',
     'sails-linker:prodStyles',
-    'sails-linker:devTpl',
-    'sails-linker:prodJsJADE',
-    'sails-linker:prodStylesJADE',
-    'sails-linker:devTplJADE'
+    'sails-linker:devTpl'
   ]);
 
   // When API files are changed:

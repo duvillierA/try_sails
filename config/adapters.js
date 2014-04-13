@@ -1,3 +1,5 @@
+var local = require('./local');
+
 /**
  * Global adapter config
  *
@@ -16,37 +18,23 @@ module.exports.adapters = {
 
   // If you leave the adapter config unspecified
   // in a model definition, 'default' will be used.
-  'default': 'disk',
+  'default': 'postgresql',
+
+  postgresql: {
+      module: 'sails-postgresql',
+      host: process.env.PG_HOSTNAME || (local.postgresql.host || 'localhost'),
+      user: process.env.PG_USER || (local.postgresql.user || 'root'),
+      password: process.env.PG_PASSWORD || (local.postgresql.password || ''),
+      database: process.env.PG_DATABASE || (local.postgresql.database || 'postgres'),
+      port: process.env.PG_PORT || (local.postgresql.port || 5432),
+      // heroku require ssl
+      ssl: process.env.NODE_ENV === 'production' ? true : false
+  },
 
   // Persistent adapter for DEVELOPMENT ONLY
   // (data is preserved when the server shuts down)
   disk: {
     module: 'sails-disk'
-  },
-
-  // MySQL is the world's most popular relational database.
-  // Learn more: http://en.wikipedia.org/wiki/MySQL
-  myLocalMySQLDatabase: {
-
-    module: 'sails-mysql',
-    host: 'YOUR_MYSQL_SERVER_HOSTNAME_OR_IP_ADDRESS',
-    user: 'YOUR_MYSQL_USER',
-    // Psst.. You can put your password in config/local.js instead
-    // so you don't inadvertently push it up if you're using version control
-    password: 'YOUR_MYSQL_PASSWORD',
-    database: 'YOUR_MYSQL_DB'
   }
-};
 
-/*'db-core': {
-    module: 'sails-postgresql',
-    host: process.env.PG_HOSTNAME' || localhost',
-    user: process.env.PG_USER || 'root',
-    password: process.env.PG_PASSWORD || '',
-    database: process.env.PG_DATABASE || 'name_of_your_db',
-    port: process.env.PG_PORT || 5432,
-    ssl: {
-        rejectUnauthorized: false
-    }
-}
-*/
+};
